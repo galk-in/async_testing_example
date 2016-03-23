@@ -2,9 +2,9 @@
   "name": "async_testing_example",
   "version": "0.0.1",
   "description": "Example for testing async behavior with logstash.",
-  "main": "app/index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha",
+    "start": "node api | node worker"
   },
   "repository": {
     "type": "git",
@@ -22,10 +22,13 @@
   },
   "homepage": "https://github.com/galk-in/async_testing_example#readme",
   "dependencies": {
+    "bunyan": "^1.8.0",
     "express": "^4.13.4",
-    "msb": "^0.10.0"
+    "mocha": "^2.4.5",
+    "msb": "^0.10.0",
+    "request": "^2.69.0"
   },
-  "devDependencies": {
-    "mocha": "^2.4.5"
+  "engines": {
+    "node": ">=4.2"
   }
 }

@@ -16,6 +16,8 @@ This project shows how test async behavior. For this you need a thing, what will
 
 ## System description
 
+System check CMS what are used on specific URL. REST API used for add the URL to the queue. Worker listens the queue, checks the URL and write CMS a log.
+
 ## Links
 
 * [docker-elk](https://github.com/deviantony/docker-elk)
