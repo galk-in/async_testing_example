@@ -1,0 +1,31 @@
+{
+  "name": "async_testing_example",
+  "version": "0.0.1",
+  "description": "Example for testing async behavior with logstash.",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/galk-in/async_testing_example.git"
+  },
+  "keywords": [
+    "logstash",
+    "async",
+    "testing"
+  ],
+  "author": "Nikita Galkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/galk-in/async_testing_example/issues"
+  },
+  "homepage": "https://github.com/galk-in/async_testing_example#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "msb": "^0.10.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}
