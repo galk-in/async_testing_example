@@ -1,32 +1,34 @@
 'use strict';
 
-const namespace = 'test:pubsub';
+require('dotenv').load();
+
+const topic = process.env.MSB_DEFAULT_TOPIC;
 
 let bunyan = require('bunyan');
 let log = bunyan.createLogger({name: "Worker"});
 let request = require('request');
 
 let msb = require('msb');
-let consumer = msb.channelManager.findOrCreateConsumer(namespace, {groupId: false});
+let consumer = msb.channelManager.findOrCreateConsumer(topic, {groupId: false});
 
 consumer
     .on('message', (message) => {
-        if (!message.payload.domain) return log.error({message: message}, 'Not domain in task');
-        let domain = message.payload.domain;
-        if(domain.indexOf('http://') === -1) {
-            domain = 'http://' + domain;
+        if (!message.payload.url) return log.error({message: message}, 'Not url in task');
+        let url = message.payload.url;
+        if(url.indexOf('http://') === -1) {
+            url = 'http://' + url;
         }
-        log.info({message: message, domain: domain}, 'New task');
-        request(domain, (error, response, body) => {
-            if (error) return log.error({error: error, domain: domain}, 'Error during request');
+        log.info({message: message, url: url}, 'New task');
+        request(url, (error, response, body) => {
+            if (error) return log.error({error: error, url: url}, 'Error during request');
 
             if (response.statusCode !== 200) return log.error({
                 response: response,
-                domain: domain
+                url: url
             }, 'Bad response during request');
 
             let cms = checkCMS(body);
-            log.info({domain: domain, cms: cms}, 'CMS checked');
+            log.info({url: url, cms: cms}, 'CMS checked');
         });
     })
     .on('error', (err) => {

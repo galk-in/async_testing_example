@@ -10,9 +10,11 @@ This project shows how test async behavior. For this you need a thing, what will
 
 ## Usage
 
-1. Run `docker-compose up` in `docker` folder for start environment.
-2. Run `npm start` for start async system.
-3. Run `npm test` for run integration test.
+1. Run `npm install`.
+2. Run `docker-compose up` in `docker` folder for start environment.
+3. Check .env file for correct variables.
+4. Run `npm start` for start async system.
+5. Run `npm test` for run integration test.
 
 ## System description
 
