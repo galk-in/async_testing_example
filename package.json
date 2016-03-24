@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/galk-in/async_testing_example#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "bunyan": "^1.8.0",
     "bunyan-logstash": "^0.3.4",
     "bunyan-logstash-tcp": "^0.3.4",
