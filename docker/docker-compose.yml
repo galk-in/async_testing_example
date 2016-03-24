@@ -11,9 +11,10 @@ logstash:
     - ./logstash/config:/etc/logstash/conf.d
   ports:
     - "5000:5000/udp"
-    - "5001:5001"
   links:
     - elasticsearch
+  extra_hosts:
+    - "testhost:172.28.23.92"
 kibana:
   build: kibana/
   volumes:

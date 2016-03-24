@@ -43,6 +43,6 @@ app.get('/checkCMS/:url', function(req, res) {
 });
 
 app.listen(process.env.NODE_PORT, function() {
-    log.info(`REST API listening on port ${process.env.NODE_PORT}`);
+    log.info({event: `REST API listening on port ${process.env.NODE_PORT}`});
 });
 
