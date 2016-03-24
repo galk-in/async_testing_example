@@ -6,7 +6,21 @@ const topic = process.env.MSB_DEFAULT_TOPIC;
 let app = require('express')();
 
 let bunyan = require('bunyan');
-let log = bunyan.createLogger({name: "REST API"});
+let log = bunyan.createLogger({
+    name: "REST API",
+    streams: [
+        {
+            type: "raw",
+            stream: require('bunyan-logstash').createStream({
+                host: process.env.LOGSTASH_HOST,
+                port: process.env.LOGSTASH_PORT
+            })
+        },
+        {
+            stream: process.stderr
+        }
+    ]
+});
 
 let msb = require('msb');
 let producer = msb.channelManager.findOrCreateProducer(topic);
