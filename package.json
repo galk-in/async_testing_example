@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Example for testing async behavior with logstash.",
   "scripts": {
-    "test": "mocha",
+    "test": "NODE_ENV=test mocha",
     "start": "node api | node worker",
     "postinstall": "cp .env.example .env"
   },
@@ -30,7 +30,8 @@
     "express": "^4.13.4",
     "mocha": "^2.4.5",
     "msb": "^0.10.0",
-    "request": "^2.69.0"
+    "request": "^2.69.0",
+    "supertest": "^1.2.0"
   },
   "engines": {
     "node": ">=4.2"
