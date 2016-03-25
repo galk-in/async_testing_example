@@ -14,7 +14,7 @@ logstash:
   links:
     - elasticsearch
   extra_hosts:
-    - "testhost:172.28.23.92"
+    - "testhost:192.168.99.1"
 kibana:
   build: kibana/
   volumes:
