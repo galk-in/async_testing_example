@@ -18,7 +18,8 @@ let log = bunyan.createLogger({
         {
             stream: process.stderr
         }
-    ]
+    ],
+    env: process.env.NODE_ENV || 'development'
 });
 
 let request = require('request');
