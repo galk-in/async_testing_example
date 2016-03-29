@@ -1,9 +1,10 @@
 'use strict';
 
+require('dotenv').load();
 let request = require('supertest');
 
 describe('Test async', () => {
-    let url = 'http://localhost:3000/checkCMS/';
+    let url = `http://${process.env.DOCKER_HOST}:3000/checkCMS/`;
     let callbackApp = require('express')();
     let server;
     callbackApp.use(require('body-parser').json());
@@ -15,7 +16,7 @@ describe('Test async', () => {
         res.status(200).end();
     });
 
-    server = callbackApp.listen(8000, '192.168.99.1');
+    server = callbackApp.listen(8000, process.env.TEST_HOST);
 
     after(() => server.close());
 

@@ -1,0 +1,20 @@
+{
+  "name": "async_testing_example-worker",
+  "private": true,
+  "version": "0.0.2",
+  "description": "Worker for testing async behavior with logstash.",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Nikita Galkin",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "^1.8.0",
+    "bunyan-logstash": "^0.3.4",
+    "msb": "^0.10.0",
+    "request": "^2.69.0"
+  },
+  "engines": {
+    "node": ">=4.2"
+  }
+}

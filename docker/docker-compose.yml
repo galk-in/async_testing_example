@@ -1,29 +1,69 @@
-elasticsearch:
-  image: elasticsearch:latest
-  command: elasticsearch -Des.network.host=0.0.0.0
-  ports:
-    - "9200:9200"
-    - "9300:9300"
-logstash:
-  image: logstash:latest
-  command: logstash -f /etc/logstash/conf.d/logstash.conf
-  volumes:
-    - ./logstash/config:/etc/logstash/conf.d
-  ports:
-    - "5000:5000/udp"
-  links:
-    - elasticsearch
-  extra_hosts:
-    - "testhost:192.168.99.1"
-kibana:
-  build: kibana/
-  volumes:
-    - ./kibana/config/:/opt/kibana/config/
-  ports:
-    - "5601:5601"
-  links:
-    - elasticsearch
-bus:
-  image: rabbitmq:3-management
-  ports:
-    - "5672:5672"
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch:latest
+    command: elasticsearch -Des.network.host=0.0.0.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+  logstash:
+    image: logstash:latest
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./logstash/config:/etc/logstash/conf.d
+    ports:
+      - "5000:5000/udp"
+    links:
+      - elasticsearch
+    extra_hosts:
+      - "testhost:192.168.99.1"
+  kibana:
+    build: kibana/
+    volumes:
+      - ./kibana/config/:/opt/kibana/config/
+    ports:
+      - "5601:5601"
+    links:
+      - elasticsearch
+  bus:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+  api:
+    build: api/
+    volumes:
+      - ./api:/app
+    ports:
+      - "3000:3000"
+    links:
+      - bus
+      - logstash
+    environment:
+      NODE_ENV: testing
+      NODE_PORT: 3000
+      MSB_BROKER_ADAPTER: amqp
+      MSB_DEFAULT_TOPIC: test:pubsub
+      MSB_BROKER_HOST: bus
+      LOGSTASH_HOST: logstash
+      LOGSTASH_PORT: 5000
+    depends_on:
+      - bus
+      - logstash
+  worker:
+    build: worker/
+    volumes:
+      - ./worker:/app
+    links:
+      - bus
+      - logstash
+    environment:
+      NODE_ENV: testing
+      NODE_PORT: 3000
+      MSB_BROKER_ADAPTER: amqp
+      MSB_DEFAULT_TOPIC: test:pubsub
+      MSB_BROKER_HOST: bus
+      LOGSTASH_HOST: logstash
+      LOGSTASH_PORT: 5000
+    depends_on:
+      - bus
+      - logstash

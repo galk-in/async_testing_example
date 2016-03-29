@@ -1,10 +1,9 @@
 {
   "name": "async_testing_example",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Example for testing async behavior with logstash.",
   "scripts": {
     "test": "NODE_ENV=testing mocha",
-    "start": "node api | node worker",
     "postinstall": "cp .env.example .env"
   },
   "repository": {
@@ -24,14 +23,9 @@
   "homepage": "https://github.com/galk-in/async_testing_example#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
-    "bunyan": "^1.8.0",
-    "bunyan-logstash": "^0.3.4",
-    "bunyan-logstash-tcp": "^0.3.4",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
     "mocha": "^2.4.5",
-    "msb": "^0.10.0",
-    "request": "^2.69.0",
     "supertest": "^1.2.0"
   },
   "engines": {
